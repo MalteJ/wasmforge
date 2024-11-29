@@ -34,12 +34,6 @@ jobs:
           npm install
           npm run asbuild
 
-      # Set up Rust
-      - name: Set up Rust
-        uses: actions/setup-rust@v2
-        with:
-          rust-version: stable
-
       # Build the Rust project
       - name: Test Rust Project
         run: cargo build --release
