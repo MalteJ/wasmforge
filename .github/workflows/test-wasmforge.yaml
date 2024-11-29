@@ -2,24 +2,21 @@ name: Test Rust Project
 
 on:
   push:
-    branches:
-      - main
-    paths:
-      - '**.rs'
-      - 'examples/helloworld/**'
+    branches: [ "main" ]
   pull_request:
-    paths:
-      - '**.rs'
-      - 'examples/helloworld/**'
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       # Check out the code
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Set up Node.js for building AssemblyScript
       - name: Set up Node.js
