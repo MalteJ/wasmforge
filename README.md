@@ -1,6 +1,13 @@
 WasmForge
 =========
 
+### Build Examples
+
+    cd examples/helloworld
+    npm install
+    npm run asbuild
+
+
 ### License
 
-FeBGP is licensed under [Apache License v2.0](LICENSE).
+WasmForge is licensed under [Apache License v2.0](LICENSE).
