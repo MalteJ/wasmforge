@@ -7,6 +7,9 @@ WasmForge
     npm install
     npm run asbuild
 
+then
+
+    cargo run
 
 ### License
 

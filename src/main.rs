@@ -1,6 +1,6 @@
-use log::{debug, info, LevelFilter};
+use log::{debug, info, warn, LevelFilter};
 use simple_logger::SimpleLogger;
-use wasmer::{Instance, Module, Store, imports, Value};
+use wasmer::{Instance, Function, Module, Store, imports, Value, Memory};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -16,8 +16,20 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     debug!("creating module...");
     let module = Module::new(&store, &wasm_bytes)?;
 
-    debug!("defining imports...");
-    let import_object = imports! {};
+    debug!("defining imports..."); // Define a mutable variable to store the WASM memory
+
+    fn say_hello_world(a: i32) {
+        warn!("Hello, world! {}", a)
+    }
+
+    // We then create an import object so that the `Module`'s imports can be satisfied.
+    let import_object = imports! {
+        // We use the default namespace "env".
+        "env" => {
+            // And call our function "say_hello".
+            "say_hello" => Function::new_typed(&mut store, say_hello_world),
+        }
+    };
 
     debug!("creating instance...");
     let instance = Instance::new(&mut store, &module, &import_object)?;
