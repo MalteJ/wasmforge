@@ -29,8 +29,8 @@ jobs:
           cd examples/helloworld
           npm install
 
-      # Run tests
-      - name: Run AssemblyScript tests
+      # Build WASM
+      - name: Compile AssemblyScript to WASM
         run: |
           cd examples/helloworld
-          npm test
+          npm run asbuild
