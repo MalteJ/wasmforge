@@ -8,7 +8,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     info!("WasmForge is starting...");
 
     debug!("Reading wasm code...");
-    let wasm_bytes = std::fs::read("./example/helloworld/build/debug.wasm")?;
+    let wasm_bytes = std::fs::read("./examples/helloworld/build/debug.wasm")?;
 
     debug!("creating store...");
     let mut store = Store::default();

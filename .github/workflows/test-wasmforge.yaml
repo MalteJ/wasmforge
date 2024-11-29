@@ -1,0 +1,49 @@
+name: Test Rust Project
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.rs'
+      - 'examples/helloworld/**'
+  pull_request:
+    paths:
+      - '**.rs'
+      - 'examples/helloworld/**'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Check out the code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Set up Node.js for building AssemblyScript
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      # Build the AssemblyScript project
+      - name: Build AssemblyScript Project
+        run: |
+          cd examples/helloworld
+          npm install
+          npm run asbuild
+
+      # Set up Rust
+      - name: Set up Rust
+        uses: actions/setup-rust@v2
+        with:
+          rust-version: stable
+
+      # Build the Rust project
+      - name: Test Rust Project
+        run: cargo build --release
+
+      # Test the Rust project
+      - name: Test Rust Project
+        run: cargo test --all
